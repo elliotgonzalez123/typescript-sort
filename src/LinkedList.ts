@@ -1,9 +1,11 @@
+import { Sorter } from './Sorter';
+
 class Node {
   next: Node | null = null;
   constructor(public data: number) {}
 }
 
-export class LinkedList {
+export class LinkedList extends Sorter {
   head: Node | null = null;
 
   add(data: number): void {
@@ -18,6 +20,7 @@ export class LinkedList {
     }
     current.next = node;
   }
+
   get length(): number {
     if (!this.head) return 0;
     let length = 1;
@@ -28,12 +31,13 @@ export class LinkedList {
     }
     return length;
   }
+
   at(index: number): Node {
     if (!this.head) {
       throw new Error('no index available');
     }
     let counter = 0;
-    let current = this.head;
+    let current: Node | null = this.head;
     while (current) {
       if (counter === index) {
         return current;
@@ -43,12 +47,14 @@ export class LinkedList {
     }
     throw new Error('no index available');
   }
+
   compare(leftIndex: number, rightIndex: number): boolean {
     if (!this.head) {
       throw new Error('list empty');
     }
     return this.at(leftIndex).data > this.at(rightIndex).data;
   }
+
   swap(leftIndex: number, rightIndex: number): void {
     const leftNode = this.at(leftIndex);
     const rightNode = this.at(rightIndex);
@@ -56,10 +62,11 @@ export class LinkedList {
     leftNode.data = rightNode.data;
     rightNode.data = temp;
   }
+
   print(): void {
     if (!this.head) return;
 
-    let current = this.head;
+    let current: Node | null = this.head;
     while (current) {
       console.log(current.data);
       current = current.next;
